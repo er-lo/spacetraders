@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'src/screens/sign_in.dart';
-import 'src/screens/sign_up.dart';
+import 'src/screens/register.dart';
 import 'src/theme/theme.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/' : (context) => const SignUpScreen(),
+        '/' : (context) => const RegisterScreen(),
         '/sign_in' : (context) => const SignInScreen(),
       },
     );

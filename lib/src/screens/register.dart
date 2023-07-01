@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import '../api/status_api.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({
+import '../api/models/status.dart';
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({
     super.key,
   });
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
 
-  final List factionsList = [
+  late Future<Status> futureStatus;
 
-  ];
+  @override
+  void initState() {
+    super.initState();
+    futureStatus = fetchStatus();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -22,6 +29,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          FutureBuilder(
+            future: futureStatus,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.status);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return const CircularProgressIndicator();
+            },
+          ),
           const Text("Create your agent"),
           const Padding(
             padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
