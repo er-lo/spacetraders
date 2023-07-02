@@ -11,16 +11,15 @@ class Status {
 
   Status(this.status, this.version, this.resetDate, this.description, this.stats, this.leaderboards, this.serverResets, this.announcements, this.links);
 
-  Status.fromJson(Map<String, dynamic> json)
-      : status = json['status'],
-        version = json['version'],
-        resetDate = json['resetDate'],
-        description = json['description'],
-        stats = json['stats'],
-        leaderboards = json['leaderboards'],
-        serverResets = json['serverResets'],
-        announcements = json['announcements'],
-        links = json['links'];
+  factory Status.fromJson(Map<String, dynamic> json) {
+    var tempAnnouncementsList = json['announcements'] as List;
+    List<Announcements> announcementsList = tempAnnouncementsList.map((i) => Announcements.fromJson(i)).toList();
+
+    var tempLinksList = json['links'] as List;
+    List<Links> linksList = tempLinksList.map((i) => Links.fromJson(i)).toList();
+
+    return Status(json['status'], json['version'], json['resetDate'], json['description'], Stats.fromJson(json['stats']), Leaderboards.fromJson(json['leaderboards']), ServerResets.fromJson(json['serverResets']), announcementsList, linksList);
+  }
 
   Map<String, dynamic> toJson() => {
     'status': status,
@@ -63,9 +62,16 @@ class Leaderboards {
 
   Leaderboards(this.mostCredits, this.mostSubmittedCharts);
 
-  Leaderboards.fromJson(Map<String, dynamic> json)
-      : mostCredits = json['mostCredits'],
-        mostSubmittedCharts = json['mostSubmittedCharts'];
+  factory Leaderboards.fromJson(Map<String, dynamic> json) {
+
+    var tempMostCreditAgentsList = json['mostCredits'] as List;
+    List<MostCreditAgents> mostCreditsAgentList = tempMostCreditAgentsList.map((i) => MostCreditAgents.fromJson(i)).toList();
+
+    var tempMostSubmittedChartsList = json['mostSubmittedCharts'] as List;
+    List<MostSubmittedCharts> mostSubmittedChartsList = tempMostSubmittedChartsList.map((i) => MostSubmittedCharts.fromJson(i)).toList();
+
+    return Leaderboards(mostCreditsAgentList, mostSubmittedChartsList);
+  }
 
   Map<String, dynamic> toJson() => {
     'mostCredits': mostCredits,
