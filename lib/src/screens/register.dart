@@ -29,17 +29,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FutureBuilder(
-            future: futureStatus,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.status);
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-              return const CircularProgressIndicator();
-            },
-          ),
           const Text("Create your agent"),
           const Padding(
             padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
