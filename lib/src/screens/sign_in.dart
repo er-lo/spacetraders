@@ -20,7 +20,7 @@ class _SignInScreenState extends State<SignInScreen> {
         Text("Sign In?"),
         TextButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false );
+              Navigator.pushNamedAndRemoveUntil(context, '/register_faction', (route) => false );
             },
             child: Text("already have an account?"))
       ],

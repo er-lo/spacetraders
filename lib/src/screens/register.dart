@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../api/factions_api.dart';
 import '../api/status_api.dart';
 
 import '../api/models/status.dart';
+import '../api/models/faction.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
@@ -15,11 +17,13 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
 
   late Future<Status> futureStatus;
+  late Future<List<Faction>> futureFactions;
 
   @override
   void initState() {
     super.initState();
     futureStatus = fetchStatus();
+    futureFactions = fetchAllFactions();
   }
 
   @override
@@ -74,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           TextButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/sign_in', (route) => false );
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false );
               },
               child: Text("Have an Account?"))
         ],
