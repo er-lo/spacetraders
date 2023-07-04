@@ -48,7 +48,7 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false );
               },
-              child: Text("Have an Account?")),
+              child: const Text("Have an Account?")),
         )
       ],
     ),
@@ -56,28 +56,40 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
 
   Widget factionListItem(Faction faction) {
 
+    List<String> listStrings = [];
+    for (var element in faction.traits) {
+      if (element == faction.traits.last) {
+        listStrings.add(element.name.toString());
+      } else {
+        listStrings.add('${element.name.toString()}, ');
+      }
+    }
+    String traitsListString = listStrings.join();
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),
       child: Card(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: ListTile(
-                title: Text(faction.name),
-                subtitle: Text(faction.description),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(faction.name),
+              const SizedBox(height: 4.0),
+              Text(traitsListString),
+              const SizedBox(height: 4.0),
+              Text(faction.description),
+              const SizedBox(height: 4.0),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  faction.isRecruiting ? const Text("Currently Recruiting") : const Text("Not Currently Recruiting")
+                  faction.isRecruiting ? const Text("Currently Recruiting", style: TextStyle(color: Colors.green),) : const Text("Currently Not Recruiting", style: TextStyle(color: Colors.red),),
+                  const SizedBox(width: 4.0,)
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         )
       ),
     );
