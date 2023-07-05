@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../api/factions_api.dart';
 import '../api/models/faction.dart';
 
 class RegisterFactionScreen extends StatefulWidget {
