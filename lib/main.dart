@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapps/src/screens/register_faction.dart';
+import 'src/screens/register_faction.dart';
+import 'src/screens/splash_page.dart';
 import 'src/screens/sign_in.dart';
 import 'src/screens/register.dart';
 import 'src/theme/theme.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: darkColorScheme,
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/' : (context) => const SignInScreen(),
+        '/' : (context) => const SplashPageScreen(),
+        '/sign_in' : (context) => const SignInScreen(),
         '/register' : (context) => const RegisterScreen(),
         '/register_faction' : (context) => const RegisterFactionScreen(),
       },

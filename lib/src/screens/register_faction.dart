@@ -24,9 +24,9 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const SizedBox(height: 80.0),
+        const Text("Choose a starting faction."),
         Expanded(
           flex: 11,
           child: FutureBuilder(
@@ -61,7 +61,7 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
       if (element == faction.traits.last) {
         listStrings.add(element.name.toString());
       } else {
-        listStrings.add('${element.name.toString()}, ');
+        listStrings.add(element.name.toString() + ', ');
       }
     }
     String traitsListString = listStrings.join();
@@ -75,12 +75,23 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(faction.name),
+              Text(
+                faction.name,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 4.0),
-              Text(traitsListString),
+              Text(
+                traitsListString,
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
               const SizedBox(height: 4.0),
               Text(faction.description),
-              const SizedBox(height: 4.0),
+              const SizedBox(height: 8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
