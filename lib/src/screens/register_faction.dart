@@ -13,46 +13,37 @@ class RegisterFactionScreen extends StatefulWidget {
 
 class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
 
-  late Future<List<Faction>> futureFactions;
-
   @override
-  void initState() {
-    super.initState();
-    futureFactions = fetchAllFactions();
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    body: Column(
-      children: [
-        const SizedBox(height: 80.0),
-        const Text("Choose a starting faction."),
-        Expanded(
-          flex: 11,
-          child: FutureBuilder(
-            future: futureFactions,
-            builder: (context, snapshot) {
-              return ListView.builder(
-                itemCount: snapshot.data?.length,
-                itemBuilder: (context, index) {
-                Faction faction = snapshot.data![index];
-                  return factionListItem(faction);
-                },
-              );
-            },
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: TextButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false );
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as FactionList;
+    return Scaffold(
+      body: Column(
+        children: [
+          const SizedBox(height: 80.0),
+          const Text("Choose a starting faction."),
+          Expanded(
+            flex: 11,
+            child: ListView.builder(
+              itemCount: args.factionsList.length,
+              itemBuilder: (context, index) {
+                Faction faction = args.factionsList[index];
+                return factionListItem(faction);
               },
-              child: const Text("Have an Account?")),
-        )
-      ],
-    ),
-  );
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/', (route) => false);
+                },
+                child: const Text("Have an Account?")),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget factionListItem(Faction faction) {
 

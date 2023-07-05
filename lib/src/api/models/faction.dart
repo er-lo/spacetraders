@@ -26,7 +26,9 @@ class Faction {
 }
 
 class FactionList {
+  final List<Faction> factionsList;
 
+  FactionList(this.factionsList);
 }
 
 class FactionTrait {

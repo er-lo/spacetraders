@@ -15,11 +15,18 @@ class _SplashPageScreenState extends State<SplashPageScreen> {
 
 
   late Future<List<Faction>> futureFactions;
+  late List<Faction> factionsList;
+
+  Future<List<Faction>> callFactions() async {
+    factionsList = await fetchAllFactions();
+    return fetchAllFactions();
+  }
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     futureFactions = fetchAllFactions();
+    callFactions();
   }
 
   @override
@@ -63,7 +70,7 @@ class _SplashPageScreenState extends State<SplashPageScreen> {
                     fixedSize: Size(width/1.5, 32.0),
                   ),
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(context, '/register_faction', (route) => false );
+                    Navigator.pushNamedAndRemoveUntil(context, '/register_faction', (route) => false, arguments: FactionList(factionsList) );
                   },
                   child: const Text("Register"),
                 ),
