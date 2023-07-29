@@ -25,10 +25,6 @@ class Faction {
   };
 }
 
-class FactionList {
-
-}
-
 class FactionTrait {
   final String symbol;
   final String name;

@@ -27,62 +27,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text("Create your agent"),
-          const Padding(
-            padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Text("Call Sign"),
-                ),
-                SizedBox(width: 8.0),
-                Expanded(
-                  flex: 4,
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Call Sign'
-                    ),
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text("Choose your call sign"),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Text("Call Sign"),
                   ),
-                )
-              ],
+                  SizedBox(width: 8.0),
+                  Expanded(
+                    flex: 4,
+                    child: TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Call Sign'
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Text("Faction"),
-                ),
-                SizedBox(width: 8.0),
-                Expanded(
-                  flex: 4,
-                  child: Text("hello"),
-                ),
-              ],
-            ),
-          ),
-          TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(width / 1.5, 32.0),
+              ),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false );
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/register', (route) => false);
               },
-              child: Text("Have an Account?"))
-        ],
+              child: const Text("Register"),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -14,6 +14,9 @@ class RegisterFactionScreen extends StatefulWidget {
 class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
 
   late Future<List<Faction>> futureFactions;
+  int selectedItem = 200;
+  late String selectedFaction;
+
 
   @override
   void initState() {
@@ -22,39 +25,61 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    body: Column(
-      children: [
-        const SizedBox(height: 80.0),
-        const Text("Choose a starting faction."),
-        Expanded(
-          flex: 11,
-          child: FutureBuilder(
-            future: futureFactions,
-            builder: (context, snapshot) {
-              return ListView.builder(
-                itemCount: snapshot.data?.length,
-                itemBuilder: (context, index) {
-                Faction faction = snapshot.data![index];
-                  return factionListItem(faction);
-                },
-              );
-            },
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Column(
+        children: [
+          const SizedBox(height: 80.0),
+          const Text("Choose a starting faction."),
+          Expanded(
+            flex: 11,
+            child: FutureBuilder(
+              future: futureFactions,
+              builder: (context, snapshot) {
+                return ListView.builder(
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                  Faction faction = snapshot.data![index];
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = index;
+                        selectedFaction = faction.symbol;
+                      });
+                      },
+                      child: factionListItem(faction, index),
+                    );
+                  },
+                );
+              },
+            ),
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: TextButton(
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(width/1.5, 32.0),
+            ),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false );
+            },
+            child: const Text("Next"),
+          ),
+          Expanded(
+            flex: 1,
+            child: TextButton(
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false );
               },
               child: const Text("Have an Account?")),
-        )
-      ],
-    ),
-  );
+          ),
+          const SizedBox(height: 32.0),
+        ],
+      ),
+    );
+  }
 
-  Widget factionListItem(Faction faction) {
+  Widget factionListItem(Faction faction, int index) {
 
     List<String> listStrings = [];
     for (var element in faction.traits) {
@@ -75,12 +100,19 @@ class _RegisterFactionScreenState extends State<RegisterFactionScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                faction.name,
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    faction.name,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 24.0),
+                  selectedItem == index ? const Icon(Icons.check, color: Colors.green,) : Container(),
+                ],
               ),
               const SizedBox(height: 4.0),
               Text(
